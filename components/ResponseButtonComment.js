@@ -1,11 +1,9 @@
 import styled from "styled-components/native";
 import ButtonIcon from "./ButtonIcon";
+import theme from "../style/theme";
 
 export default function ResponseButtonComment() {
   const { count, icon } = props;
-
-  // 댓글 버튼을 눌렀을 때 아래 댓글 창이 열려야한다.
-  const onPress = () => {};
 
   return (
     <ResponseButtonContainer>
@@ -24,5 +22,5 @@ const ResponseButtonContainer = styled.Pressable`
 const StateNumber = styled.Text`
   margin-left: 7px;
   font-size: 18px;
-  color: #696d79;
+  color: ${theme.ScreenColor.listUI.stateNumber};
 `;

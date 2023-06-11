@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import MBTITag from "./MBTITag";
+import theme from "../style/theme";
 
 export default function WriterInfo(props) {
   const { type, writer } = props;
@@ -19,5 +20,5 @@ const WriterInfoContainer = styled.View`
 
 const Writer = styled.Text`
   margin-left: 5px;
-  color: #c2c2ca;
+  color: ${theme.ScreenColor.listUI.writer};
 `;

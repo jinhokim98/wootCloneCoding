@@ -5,10 +5,13 @@ import MainList from "../components/MainList";
 import { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { RefreshControl } from "react-native";
+import { questionData } from "../data/question";
 
 export default function Main({ navigation }) {
   const [allQuestions, setAllQuestions] = useState([]);
   const [myTypeQuestions, setMyTypeQuestions] = useState([]);
+  const [screenRefresh, setScreenRefresh] = useState(false);
 
   const myType = "ESFJ";
 
@@ -27,27 +30,51 @@ export default function Main({ navigation }) {
     fetchData();
   }, []);
 
+  // 새로고침 및 다시 데이터를 불러올 시 유지
   const refreshData = useCallback(() => {
     fetchData();
   }, []);
 
+  const handleScreenRefresh = useCallback(() => {
+    setScreenRefresh(true);
+    fetchData();
+    setScreenRefresh(false);
+  }, []);
+
   useFocusEffect(refreshData);
 
-  // 초기 데이터 저장
-  // useEffect(() => {
-  //   const storageSaveQuestion = async () => {
-  //     try {
-  //       const data = JSON.stringify(questionData);
-  //       await AsyncStorage.setItem("questionData", data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   storageSaveQuestion();
-  // }, []);
+  // 초기 데이터가 있나 확인하는 함수
+  useEffect(() => {
+    const storageSaveQuestion = async () => {
+      try {
+        const data = JSON.stringify(questionData);
+        await AsyncStorage.setItem("questionData", data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const checkAsyncStorage = async () => {
+      try {
+        const jsonData = await AsyncStorage.getItem("questionData");
+        if (jsonData === null || jsonData === undefined) {
+          throw "null data";
+        }
+      } catch (err) {
+        storageSaveQuestion();
+      }
+    };
+    checkAsyncStorage();
+  }, []);
 
   return (
-    <MainContainer>
+    <MainContainer
+      refreshControl={
+        <RefreshControl
+          refreshing={screenRefresh}
+          onRefresh={handleScreenRefresh}
+        />
+      }
+    >
       <Header>
         <Title>
           <SubTitleContainer>
@@ -83,7 +110,7 @@ export default function Main({ navigation }) {
   );
 }
 
-const MainContainer = styled.View`
+const MainContainer = styled.ScrollView`
   max-width: 500px;
   margin-top: 40px;
   padding: 0 20px;
@@ -102,7 +129,6 @@ const ButtonContainer = styled.View`
 const Title = styled.View`
   width: 80%;
   height: 100px;
-  color: #b4b4bd;
 `;
 
 const SubTitleContainer = styled.View`

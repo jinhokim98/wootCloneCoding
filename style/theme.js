@@ -17,7 +17,15 @@ const theme = {
         text: "#272744",
         more: "#22527c",
         chat: "#b2b2bc",
+        border: "#f4f5f9",
       },
+    },
+    listUI: {
+      border: "#f2f4f7",
+      moreButton: "#9c9ca9",
+      commentBar: "#f7f8fa",
+      stateNumber: "#696d79",
+      writer: "#c2c2ca",
     },
   },
   margin: {

@@ -75,7 +75,7 @@ const List = styled.View`
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-color: #f4f5f9;
+  border-color: ${theme.ScreenColor.mainUI.body.border};
   border-bottom-width: 2px;
 `;
 

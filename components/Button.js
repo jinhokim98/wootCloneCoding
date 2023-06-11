@@ -17,7 +17,7 @@ const ButtonContainer = styled.Pressable`
 `;
 
 const ButtonText = styled.Text`
-  padding: 5px 12px;
+  padding: 5px 10px;
   color: white;
   font-weight: 500;
 `;

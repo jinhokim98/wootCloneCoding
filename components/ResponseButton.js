@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import ButtonIcon from "./ButtonIcon";
+import theme from "../style/theme";
 
 export default function ResponseButton(props) {
   const { count, setCount, icon } = props;
@@ -20,5 +21,5 @@ const ResponseButtonContainer = styled.View`
 const StateNumber = styled.Text`
   margin-left: 7px;
   font-size: 18px;
-  color: #696d79;
+  color: ${theme.ScreenColor.listUI.stateNumber};
 `;

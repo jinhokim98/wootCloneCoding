@@ -7,18 +7,20 @@ import ResponseButton from "./ResponseButton";
 import { useEffect, useState } from "react";
 import { Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import theme from "../style/theme";
 
 export default function ListContentDetail() {
   const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loadCount, setLoadCount] = useState(null);
-
-  const [openCommentInput, setOpenCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
-  const [postOfCommentIndex, setPostOfCommentIndex] = useState(null);
 
   const myType = "ESFJ";
+
+  const handlePullDownRefresh = () => {
+    console.log("hi");
+  };
 
   const onSubmit = (questionId) => {
     saveComment(questionId - 1);
@@ -115,6 +117,7 @@ export default function ListContentDetail() {
       onEndReachedThreshold={0.8}
       ListFooterComponent={isLoading && <Text>loading...</Text>}
       refreshing={isLoading}
+      onRefresh={handlePullDownRefresh}
     />
   );
 }
@@ -169,7 +172,7 @@ const InfinityScrollView = styled.FlatList``;
 const ListContentDetailContainer = styled.View`
   margin-top: 20px;
   padding: 0 20px;
-  border-color: #f2f4f7;
+  border-color: ${theme.ScreenColor.listUI.border};
   border-bottom-width: 20px;
 `;
 
@@ -182,13 +185,12 @@ const ListContext = styled.Text`
   font-size: 17px;
 `;
 
-// border color 변경
 const ListStatusBar = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 15px 0;
-  border-color: #f4f5f9;
+  border-color: ${theme.ScreenColor.listUI.border};
   border-bottom-width: 2px;
 `;
 
@@ -204,7 +206,7 @@ const ShowAllCommentButton = styled.Pressable`
 `;
 
 const ShowAllCommentButtonText = styled.Text`
-  color: #9c9ca9;
+  color: ${theme.ScreenColor.listUI.moreButton};
 `;
 
 const MakeCommentContainer = styled.View`
@@ -214,7 +216,7 @@ const MakeCommentContainer = styled.View`
   width: 100%;
   height: 50px;
   padding: 8px 12px;
-  background-color: #f7f8fa;
+  background-color: ${theme.ScreenColor.listUI.commentBar};
   border-radius: 10px;
 `;
 
@@ -224,20 +226,7 @@ const CommentIcon = styled.Image`
   margin-right: 10px;
 `;
 
-const MakeComment = styled.Text`
-  width: 100%;
-  height: 50px;
-  padding-top: 15px;
-`;
-
 const MakeCommentInput = styled.TextInput`
   width: 80%;
   height: 50px;
 `;
-
-const SubmitButton = styled.Pressable`
-  width: 30px;
-  height: 20px;
-`;
-
-const SubmitButtonText = styled.Text``;
