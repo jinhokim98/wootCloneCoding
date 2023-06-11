@@ -12,5 +12,5 @@ export default function List({ navigation }) {
 
 const ListContainer = styled.View`
   max-width: 500px;
-  margin-top: 40px;
+  margin-top: 20px;
 `;

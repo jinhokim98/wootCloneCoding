@@ -9,7 +9,12 @@ export default function MainList(props) {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    setList(contents);
+    // 메인화면에서 보이는 컨텐츠는 모든 게시글 중 최신 게시물 3개만 보여준다.
+    const threeLatestContents = contents
+      .filter((content) => content.questionId > contents.length - 3)
+      .sort((a, b) => b.questionId - a.questionId);
+
+    setList(threeLatestContents);
   }, []);
 
   return (
@@ -20,6 +25,7 @@ export default function MainList(props) {
           <MoreText>더 보기</MoreText>
         </More>
       </Header>
+      {/* 바디에 링크 걸어버리면 된다. */}
       <Body>
         {list.length > 0 &&
           list.map((item) => (

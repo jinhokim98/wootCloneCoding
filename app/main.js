@@ -3,21 +3,41 @@ import theme from "../style/theme";
 import Button from "../components/Button";
 import MainList from "../components/MainList";
 import { useEffect, useState } from "react";
-import { questionData } from "../data/question";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Main({ navigation }) {
   const [allQuestions, setAllQuestions] = useState([]);
   const [myTypeQuestions, setMyTypeQuestions] = useState([]);
 
-  const myType = "ESFJ";
+  const myType = "ENFP";
 
-  // dummy data에서 값을 불러와서 저장한다.
+  const fetchData = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem("questionData");
+      const data = JSON.parse(jsonData);
+      setAllQuestions(data);
+      setMyTypeQuestions(data.filter((question) => question.type === myType));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    setAllQuestions(questionData);
-    setMyTypeQuestions(
-      questionData.filter((question) => question.type === myType)
-    );
+    fetchData();
   }, []);
+
+  // 초기 데이터 저장
+  // useEffect(() => {
+  //   const storageSaveQuestion = async () => {
+  //     try {
+  //       const data = JSON.stringify(questionData);
+  //       await AsyncStorage.setItem("questionData", data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   storageSaveQuestion();
+  // }, []);
 
   return (
     <MainContainer>
@@ -37,11 +57,14 @@ export default function Main({ navigation }) {
       </Header>
       {allQuestions.length > 0 && (
         <>
-          <MainList
-            title={`${myType}에게 도착한 질문`}
-            navigation={navigation}
-            contents={myTypeQuestions}
-          />
+          {myTypeQuestions.length > 0 && (
+            <MainList
+              title={`${myType}에게 도착한 질문`}
+              navigation={navigation}
+              contents={myTypeQuestions}
+            />
+          )}
+
           <MainList
             title="모든 유형의 질문"
             navigation={navigation}

@@ -2,20 +2,21 @@ export const questionData = [
   {
     questionId: 1,
     type: "ENFP",
-    context: "ENFP여러분 시험공부 잘 되시나요?",
+    context:
+      "ENFP여러분 시험공부 잘 되시나요ㅜㅜ 다음주부터 시험인데 먹을거밖에 생각이 안나요....",
     writerType: "ISFP",
     writer: "익명",
     likeCount: 6,
     comments: [
       {
-        commentId: "1-1",
+        commentId: 1,
         writerType: "ENFP",
         writer: "익명",
         context: "전 친구들이랑 시험끝나고 뭐먹을지만 적고있어요",
         likeCount: 1,
       },
       {
-        commentId: "1-2",
+        commentId: 2,
         writerType: "ENFP",
         writer: "익명",
         context: "지극히 정상이에요",
@@ -30,24 +31,24 @@ export const questionData = [
       "본인이 엔프피인데 가장 잘 맞다, 유독 대화가 잘 된다, 시간 가는 줄도 모르게 대화가 넘치고, 환상의 짝이다 싶은 mbti 있어? 난 엔프피 정말 너무 잘 맞아서 전화로 1시간 떠들 때 매일 웃고 있어 별것도 아닌데도",
     writerType: "ENTP",
     writer: "익명",
-    likeCount: 60,
+    likeCount: 6,
     comments: [
       {
-        commentId: "2-1",
+        commentId: 1,
         writerType: "ENFP",
         writer: "익명",
         context: "ESFP",
         likeCount: 0,
       },
       {
-        commentId: "2-2",
+        commentId: 2,
         writerType: "ENFP",
         writer: "익명",
         context: "XNXP NP들이랑 대체로 그런듯",
         likeCount: 0,
       },
       {
-        commentId: "2-3",
+        commentId: 3,
         writerType: "ENFP",
         writer: "익명",
         context: "ENTP",
@@ -65,11 +66,18 @@ export const questionData = [
     likeCount: 1,
     comments: [
       {
-        commentId: "3-1",
+        commentId: 1,
         writerType: "ENFP",
         writer: "익명",
         context:
           "네???보면서도 이게 뭔..? 싶었습니다. 본인이 고백해놓고 한달 동안 안 만나는 건 뭐죠? 대체ㅋㅋ 그쵸, 일단 엠비티아이를 떠나서 그 분이 무례하시네요...엔팁남이 하고 싶으신 대로 따르는 게 제일 좋을 듯 한데, 얘기라도 들어볼 여지가 있다면 왜 그랬는지 물어는 보시길 추천드리고 싶어요. 답답함을 해소해야 나중에 후회가 없거든요. 한달동안 맘 고생하셨을지도 모를텐데ㅠ 아이구,,, 좋은 사람,사랑 만나세횹!!",
+        likeCount: 0,
+      },
+      {
+        commentId: 2,
+        writerType: "ENFP",
+        writer: "익명",
+        context: "헐.. 너무 나쁘다. 얼른 정리하시구 좋은 사람 만나세요..!",
         likeCount: 0,
       },
     ],
@@ -83,14 +91,14 @@ export const questionData = [
     likeCount: 2,
     comments: [
       {
-        commentId: "4-1",
+        commentId: 1,
         writerType: "ESTJ",
         writer: "익명",
         context: "난 ESTP여자 좋더라",
         likeCount: 0,
       },
       {
-        commentId: "4-1",
+        commentId: 2,
         writerType: "ESTJ",
         writer: "익명",
         context: "난 ESTP여자 별로던데;;;",
@@ -107,7 +115,7 @@ export const questionData = [
     likeCount: 0,
     comments: [
       {
-        commentId: "5-1",
+        commentId: 1,
         writerType: "ENTJ",
         writer: "익명",
         context:
@@ -115,21 +123,21 @@ export const questionData = [
         likeCount: 1,
       },
       {
-        commentId: "5-2",
+        commentId: 2,
         writerType: "ENTP",
         writer: "익명",
         context: "혹시 성별 물어봐도 될까여?",
         likeCount: 0,
       },
       {
-        commentId: "5-3",
+        commentId: 3,
         writerType: "ENTJ",
         writer: "익명",
         context: "여잡니당",
         likeCount: 0,
       },
       {
-        commentId: "5-4",
+        commentId: 4,
         writerType: "ENTP",
         writer: "익명",
         context: "앟하 감사해요!!!",
@@ -146,14 +154,14 @@ export const questionData = [
     likeCount: 2,
     comments: [
       {
-        commentId: "6-1",
+        commentId: 1,
         writerType: "ESTJ",
         writer: "익명",
         context: "연락 잘 안되는 친구 그래도 연락하면 다 받아주는 친구",
         likeCount: 1,
       },
       {
-        commentId: "6-2",
+        commentId: 2,
         writerType: "INTP",
         writer: "익명",
         context: "알려줘서 고마워ㅎ",
@@ -170,7 +178,7 @@ export const questionData = [
     likeCount: 0,
     comments: [
       {
-        commentId: "7-1",
+        commentId: 1,
         writerType: "ENTP",
         writer: "익명",
         context:
@@ -178,7 +186,7 @@ export const questionData = [
         likeCount: 0,
       },
       {
-        commentId: "7-2",
+        commentId: 2,
         writerType: "ENTP",
         writer: "익명",
         context: "갠적으로 난 안맞",
@@ -195,14 +203,14 @@ export const questionData = [
     likeCount: 0,
     comments: [
       {
-        commentId: "8-1",
+        commentId: 1,
         writerType: "ISTJ",
         writer: "익명",
         context: "짜증남",
         likeCount: 1,
       },
       {
-        commentId: "8-2",
+        commentId: 2,
         writerType: "ISTJ",
         writer: "익명",
         context: "계획대로 안되는 그것조차 현실임, 받아들임 나는",
@@ -219,14 +227,14 @@ export const questionData = [
     likeCount: 1,
     comments: [
       {
-        commentId: "9-1",
+        commentId: 1,
         writerType: "INFJ",
         writer: "익명",
         context: "저 같으면 포기하는 편이에요",
         likeCount: 0,
       },
       {
-        commentId: "9-2",
+        commentId: 2,
         writerType: "ESTP",
         writer: "익명",
         context:
@@ -234,7 +242,7 @@ export const questionData = [
         likeCount: 0,
       },
       {
-        commentId: "9-3",
+        commentId: 3,
         writerType: "INFJ",
         writer: "익명",
         context:
@@ -242,7 +250,7 @@ export const questionData = [
         likeCount: 0,
       },
       {
-        commentId: "9-4",
+        commentId: 4,
         writerType: "ISTJ",
         writer: "익명",
         context:
@@ -261,14 +269,14 @@ export const questionData = [
     likeCount: 1,
     comments: [
       {
-        commentId: "10-1",
+        commentId: 1,
         writerType: "ESFJ",
         writer: "익명",
         context: "네 완전요!",
         likeCount: 0,
       },
       {
-        commentId: "10-2",
+        commentId: 2,
         writerType: "ESFJ",
         writer: "익명",
         context: "infp",
