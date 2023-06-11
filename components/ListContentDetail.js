@@ -5,35 +5,68 @@ import WriterInfo from "./WriterInfo";
 import Comment from "./Comment";
 import ResponseButton from "./ResponseButton";
 import { useEffect, useState } from "react";
-import { questionData } from "../data/question";
 import { Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ListContentDetail() {
+  const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadCount, setLoadCount] = useState(NaN); // 절대 나올 수 없는 값을 초기값으로
+  const [loadCount, setLoadCount] = useState(null);
 
+  const [openCommentInput, setOpenCommentInput] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [postOfCommentIndex, setPostOfCommentIndex] = useState(null);
+
+  const myType = "ESFJ";
+
+  const onSubmit = (questionId) => {
+    saveComment(questionId - 1);
+    setCommentText("");
+  };
+
+  const saveComment = async (index) => {
+    try {
+      // 삭제 없다고 가정, 이미 댓글이 몇 개 있다고 가정 (댓글이 없는 경우는 없음)
+      const newAllQuestions = allQuestions;
+      const commentNewIndex = allQuestions[index].comments.length;
+
+      newAllQuestions[index].comments.push({
+        commentId: commentNewIndex + 1,
+        writerType: myType,
+        writer: "익명",
+        context: commentText,
+        likeCount: 0,
+      });
+
+      setAllQuestions(newAllQuestions);
+
+      const jsonData = JSON.stringify(newAllQuestions);
+
+      await AsyncStorage.setItem("questionData", jsonData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 초기에만 호출
   const fetchData = async () => {
     try {
       const jsonData = await AsyncStorage.getItem("questionData");
       const data = JSON.parse(jsonData);
 
-      const loadIndex = loadCount === NaN ? data.length : loadCount;
-
       // 질문 삭제는 우선 없다고 가정해서 질문 수와 id 최댓값은 동일
-      const showData = data.filter(
-        (question) =>
-          question.questionId <= loadIndex &&
-          question.questionId > loadIndex - 4
-      );
+      const showData = data
+        .filter(
+          (question) =>
+            question.questionId <= data.length &&
+            question.questionId > data.length - 4
+        )
+        .sort((a, b) => b.questionId - a.questionId);
 
+      setAllQuestions(data);
       setQuestions(showData);
-
-      // loadCount 조정
-      loadCount === NaN
-        ? setLoadCount(data.length - 4)
-        : setLoadCount((prev) => prev - 4);
+      setLoadCount(data.length - 4);
     } catch (error) {
       console.log(error);
     }
@@ -41,11 +74,15 @@ export default function ListContentDetail() {
 
   // 이어서 데이터를 로드하는 함수
   const proceedLoadData = (loadCount) => {
-    const proceedData = questionData.filter(
-      (question) =>
-        question.questionId <= loadCount + 4 && question.questionId > loadCount
-    );
-    setLoadCount((prev) => prev + 4);
+    const proceedData = allQuestions
+      .filter(
+        (question) =>
+          question.questionId <= loadCount &&
+          question.questionId > loadCount - 4
+      )
+      .sort((a, b) => b.questionId - a.questionId);
+
+    setLoadCount((prev) => prev - 4);
 
     return proceedData;
   };
@@ -55,7 +92,8 @@ export default function ListContentDetail() {
     if (!isLoading) {
       setIsLoading(true);
       setTimeout(() => {
-        setQuestions((prev) => [...prev, ...proceedLoadData(loadCount)]);
+        const proceedData = proceedLoadData(loadCount);
+        setQuestions((prev) => [...prev, ...proceedData]);
         setIsLoading(false);
       }, 2000);
     }
@@ -63,21 +101,15 @@ export default function ListContentDetail() {
 
   // 일단은 4개만 불러온다.
   useEffect(() => {
-    const data = questionData.filter((question) => question.questionId <= 4);
-    setQuestions(data);
-    setLoadCount(data.length);
+    fetchData();
   }, []);
-
-  // 로드 정상적인지 확인하기 위해
-  useEffect(() => {
-    const data = questions.map((item) => item.questionId);
-    console.log(data);
-  }, [questions]);
 
   return (
     <InfinityScrollView
       data={questions}
-      renderItem={renderItem}
+      renderItem={(item) =>
+        renderItem(item, commentText, setCommentText, onSubmit)
+      }
       keyExtractor={(item) => item.questionId}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.8}
@@ -87,8 +119,9 @@ export default function ListContentDetail() {
   );
 }
 
-function renderItem({ item }) {
+function renderItem({ item }, commentText, setCommentText, onSubmit) {
   const question = item;
+
   return (
     <ListContentDetailContainer>
       <ListContentDetailInner>
@@ -117,7 +150,14 @@ function renderItem({ item }) {
           ))}
         <MakeCommentContainer>
           <CommentIcon source={require("../assets/icons/chat.png")} />
-          <MakeCommentInput placeholder="댓글 남기기"></MakeCommentInput>
+          <MakeCommentInput
+            placeholder="댓글 남기기"
+            onChangeText={(text) => setCommentText(text)}
+            value={commentText}
+            onSubmitEditing={() => {
+              onSubmit(question.questionId);
+            }}
+          />
         </MakeCommentContainer>
       </ListContentDetailInner>
     </ListContentDetailContainer>
@@ -184,7 +224,20 @@ const CommentIcon = styled.Image`
   margin-right: 10px;
 `;
 
-const MakeCommentInput = styled.TextInput`
+const MakeComment = styled.Text`
   width: 100%;
   height: 50px;
+  padding-top: 15px;
 `;
+
+const MakeCommentInput = styled.TextInput`
+  width: 80%;
+  height: 50px;
+`;
+
+const SubmitButton = styled.Pressable`
+  width: 30px;
+  height: 20px;
+`;
+
+const SubmitButtonText = styled.Text``;

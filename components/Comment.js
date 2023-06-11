@@ -12,7 +12,7 @@ export default function Comment(props) {
       </CommentWriter>
       <CommentContext>{comment.context}</CommentContext>
       <LikeAndSetting>
-        <ResponseButton count={comment.likeCount} icon="comment" />
+        <ResponseButton count={comment.likeCount} icon="like" />
         <ButtonIcon buttonType="dot" />
       </LikeAndSetting>
     </CommentContainer>
@@ -33,15 +33,4 @@ const LikeAndSetting = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`;
-
-const LikeFeat = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const StateNumber = styled.Text`
-  margin-left: 3px;
-  font-size: 18px;
 `;

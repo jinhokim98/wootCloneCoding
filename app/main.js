@@ -2,14 +2,15 @@ import styled from "styled-components/native";
 import theme from "../style/theme";
 import Button from "../components/Button";
 import MainList from "../components/MainList";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Main({ navigation }) {
   const [allQuestions, setAllQuestions] = useState([]);
   const [myTypeQuestions, setMyTypeQuestions] = useState([]);
 
-  const myType = "ENFP";
+  const myType = "ESFJ";
 
   const fetchData = async () => {
     try {
@@ -25,6 +26,12 @@ export default function Main({ navigation }) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const refreshData = useCallback(() => {
+    fetchData();
+  }, []);
+
+  useFocusEffect(refreshData);
 
   // 초기 데이터 저장
   // useEffect(() => {

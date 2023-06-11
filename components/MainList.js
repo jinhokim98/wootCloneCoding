@@ -15,7 +15,7 @@ export default function MainList(props) {
       .sort((a, b) => b.questionId - a.questionId);
 
     setList(threeLatestContents);
-  }, []);
+  }, [contents]);
 
   return (
     <MainListContainer>
@@ -26,7 +26,7 @@ export default function MainList(props) {
         </More>
       </Header>
       {/* 바디에 링크 걸어버리면 된다. */}
-      <Body>
+      <Body onPress={() => navigation.navigate("List")}>
         {list.length > 0 &&
           list.map((item) => (
             <List key={`list_${item.questionId}`}>
@@ -67,7 +67,7 @@ const MoreText = styled.Text`
   font-weight: 700;
 `;
 
-const Body = styled.View``;
+const Body = styled.Pressable``;
 
 const List = styled.View`
   display: flex;

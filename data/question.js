@@ -1,3 +1,4 @@
+// AsyncStorage에 넣을 데이터 Main 함수에 주석 처리한 storageSaveQuestion함수 실행시키면 저장됩니다.
 export const questionData = [
   {
     questionId: 1,
